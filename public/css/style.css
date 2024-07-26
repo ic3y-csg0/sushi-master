@@ -181,17 +181,7 @@ footer a:hover {
 }
 
 /* Медиа-запросы для мобильных устройств */
-@media (max-width: 768px) {
-    .sushi-item {
-        width: calc(50% - 10px); /* 2 колонки на мобильных устройствах */
-    }
-}
 
-@media (max-width: 480px) {
-    .sushi-item {
-        width: calc(100% - 10px); /* 1 колонка на очень маленьких экранах */
-    }
-}
 
 
 .cart-button-fixed {
