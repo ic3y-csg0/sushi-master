@@ -5,7 +5,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     position: relative;
-    overflow: hidden;
+  
 }
 
 header, footer {
@@ -100,7 +100,7 @@ footer a:hover {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    padding: 10px;
+    padding: 0 10px; /* Уменьшенный горизонтальный padding */
 }
 
 .sushi-item {
@@ -112,7 +112,7 @@ footer a:hover {
         0 6px 12px rgba(0, 0, 0, 0.15);
     padding: 8px;
     text-align: center;
-    width: calc(20% - 10px);
+    width: calc(20% - 10px); /* Учитываем gap в расчете ширины */
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
@@ -177,35 +177,38 @@ footer a:hover {
     transform: translateX(0);
 }
 
-/* Основной стиль для меню */
-/* Основной стиль для меню */
-авное появление меню */
 
 
 
 
 
-/* Выравнивание меню по правому краю */
 
-
-
-
-
-/* Стили для фиксированной кнопки корзины */
 .cart-button-fixed {
-    position: fixed; /* Фиксированное позиционирование относительно окна браузера */
-    bottom: 20px; /* Отступ от нижнего края окна */
-    right: 20px; /* Отступ от правого края окна */
-    z-index: 1000; /* Убедитесь, что кнопка находится поверх других элементов */
-    border-radius: 50%; /* Если вы хотите, чтобы кнопка была круглой */
-    padding: 10px 15px; /* Установите размеры кнопки */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавьте тень для лучшего визуального восприятия */
+    position: absolute;
+    bottom: 20px;
+    right: 20px; 
+   
+    border-radius: 50%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cart-button-fixed i {
-    font-size: 1.5rem; /* Установите размер иконки */
-    color: #fff; /* Цвет иконки */
+    font-size: 1.5rem;
+    color: #fff;
 }
+
+.cart-button-fixed:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
 
 /* Стили для модального окна, если нужны какие-то изменения */
 .modal-content {
