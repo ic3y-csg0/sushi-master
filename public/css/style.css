@@ -211,6 +211,7 @@ footer a:hover {
     align-items: center; /* Вертикальное выравнивание иконки */
     justify-content: center; /* Горизонтальное выравнивание иконки */
     font-size: 2.5rem; /* Размер шрифта для иконки */
+    -webkit-backface-visibility: hidden;
     transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы для фона и тени */
 }
 
