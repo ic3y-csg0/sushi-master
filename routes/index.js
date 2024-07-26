@@ -1,14 +1,17 @@
 const express = require('express');
-const router = express.Router();
+const path = require('path');
+const app = express();
+const indexRouter = require('./routes/index');
 
-// Главная страница
-router.get('/', (req, res) => {
-    res.render('index');
-});
+// Настройка EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// Страница меню
-router.get('/menu', (req, res) => {
-    res.render('menu');
-});
+// Настройка статических файлов
+app.use(express.static(path.join(__dirname, 'public')));
 
-module.exports = router;
+// Подключение маршрутизатора
+app.use('/', indexRouter);
+
+// Экспорт приложения для Vercel
+module.exports = app;
