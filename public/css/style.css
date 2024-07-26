@@ -196,8 +196,8 @@ footer a:hover {
 
 .cart-button-fixed {
     position: fixed;
-    bottom: 100px;
-    right: 20px;
+    bottom: 100px; /* Отступ от нижнего края */
+    right: 20px;  /* Отступ от правого края */
     z-index: 1050; /* Высокий z-index, чтобы кнопка была выше всего остального */
     width: 80px; /* Ширина кнопки */
     height: 80px; /* Высота кнопки */
@@ -218,6 +218,7 @@ footer a:hover {
     background-color: #00d100; /* Цвет фона при наведении */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличение тени при наведении */
 }
+
 
 
 /* Стили для иконки внутри кнопки */
