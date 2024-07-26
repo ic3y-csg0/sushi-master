@@ -180,8 +180,18 @@ footer a:hover {
     transform: translateX(0);
 }
 
-/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    .sushi-item {
+        width: calc(50% - 10px); /* 2 колонки на планшетах */
+    }
+}
 
+/* Для телефонов с экраном меньше 480px */
+@media (max-width: 480px) {
+    .sushi-item {
+        width: calc(100% - 10px); /* 1 колонка на телефонах */
+    }
+}
 
 
 .cart-button-fixed {
