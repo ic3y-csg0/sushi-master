@@ -120,7 +120,7 @@ footer a:hover {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    width: calc(20% - 10px); /* Ширина элемента */
+    width: calc(25% - 10px); /* Ширина элемента для 4 колонок */
 }
 
 /* Стили для изображения суши */
@@ -195,29 +195,38 @@ footer a:hover {
 
 
 .cart-button-fixed {
-    position: absolute;
-    bottom: 20px;
-    right: 20px; 
-   
-    border-radius: 50%;
-    padding: 10px;
-    background-color: #007bff;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1050; /* Высокий z-index, чтобы кнопка была выше всего остального */
+    width: 80px; /* Ширина кнопки */
+    height: 80px; /* Высота кнопки */
+    border-radius: 50%; /* Полное скругление для круглой формы */
+    background-color: #01ff23; /* Ярко-зелёный цвет фона */
     color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: none;
+    border: none; /* Убираем границу */
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cart-button-fixed i {
-    font-size: 1.5rem;
-    color: #fff;
+    display: flex; /* Используем Flexbox для центрирования содержимого */
+    align-items: center; /* Вертикальное выравнивание иконки */
+    justify-content: center; /* Горизонтальное выравнивание иконки */
+    font-size: 2.5rem; /* Размер шрифта для иконки */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы для фона и тени */
 }
 
 .cart-button-fixed:hover {
-    background-color: #0056b3;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: #00d100; /* Цвет фона при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличение тени при наведении */
 }
+
+
+/* Стили для иконки внутри кнопки */
+.cart-button-fixed i {
+    font-size: 2.5rem; /* Размер шрифта для иконки */
+    color: #fff;
+}
+
+
 
 
 
@@ -227,7 +236,7 @@ footer a:hover {
 }
 
 .modal-header {
-    background-color: #007bff;
+    background-color: #006eff;
     color: #fff;
 }
 
