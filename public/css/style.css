@@ -95,24 +95,26 @@ footer a:hover {
     z-index: -1;
 }
 
+/* Стили для контейнера с суши */
 .sushi-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 10px; /* Отступ между элементами */
     padding: 0 10px; /* Уменьшенный горизонтальный padding */
+    box-sizing: border-box;
 }
 
+/* Стили для каждого элемента суши */
 .sushi-item {
     position: relative;
     background-color: rgba(13, 13, 13, 0.5);
-    border-radius: 10px;
+    border-radius: 8px; /* Уменьшенный радиус границы */
     box-shadow: 
-        0 4px 8px rgba(0, 0, 0, 0.2),
-        0 6px 12px rgba(0, 0, 0, 0.15);
-    padding: 8px;
+        0 3px 6px rgba(0, 0, 0, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.15); /* Меньшие тени */
+    padding: 6px; /* Уменьшенный padding */
     text-align: center;
-    width: calc(20% - 10px); /* Учитываем gap в расчете ширины */
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
@@ -120,25 +122,16 @@ footer a:hover {
     flex-direction: column;
 }
 
-.sushi-item:hover {
-    transform: scale(1.05);
-    box-shadow: 
-        0 8px 16px rgba(0, 0, 0, 0.3),
-        0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
+/* Стили для изображения суши */
 .sushi-item img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 8px; /* Уменьшенный радиус границы */
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.sushi-item:hover img {
-    transform: scale(1.05);
-}
-
+/* Стили для контейнера с ценой */
 .price-container {
     display: flex;
     align-items: center;
@@ -148,28 +141,35 @@ footer a:hover {
     transition: transform 0.3s ease;
 }
 
-.price {
-    margin: 0;
-    font-size: 1rem;
-    margin-right: 3px;
-}
-
+/* Кнопка добавления товара */
 .add-button {
     background-color: #007bff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px; /* Уменьшенный радиус границы */
     color: #fff;
-    padding: 4px 8px;
-    font-size: 1rem;
+    padding: 2px 6px; /* Уменьшенный padding */
+    font-size: 0.9rem; /* Уменьшенный размер шрифта */
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
     position: absolute;
-    right: 10px;
+    right: 8px; /* Уменьшенный отступ справа */
+}
+
+/* Эффекты при наведении */
+.sushi-item:hover {
+    transform: scale(1.03); /* Уменьшенный масштаб при наведении */
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.3),
+        0 8px 16px rgba(0, 0, 0, 0.2); /* Увеличенные тени */
+}
+
+.sushi-item:hover img {
+    transform: scale(1.03); /* Уменьшенный масштаб при наведении на изображение */
 }
 
 .sushi-item:hover .price-container {
-    transform: translateX(-10px);
+    transform: translateX(-8px); /* Уменьшенный сдвиг при наведении */
 }
 
 .sushi-item:hover .add-button {
@@ -177,10 +177,18 @@ footer a:hover {
     transform: translateX(0);
 }
 
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    .sushi-item {
+        width: calc(50% - 10px); /* 2 колонки на мобильных устройствах */
+    }
+}
 
-
-
-
+@media (max-width: 480px) {
+    .sushi-item {
+        width: calc(100% - 10px); /* 1 колонка на очень маленьких экранах */
+    }
+}
 
 
 .cart-button-fixed {
