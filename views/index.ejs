@@ -1,99 +1,40 @@
-<% var body = `
-<div class="highlighted-heading-container">
-    <h1 style="font-size: 3rem; margin: 0;">Welcome to Sushi Delivery!</h1>
-    
-</div>
-<div class="sushi-container">
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Sushi Roll">
-        <h2>Sushi Roll</h2>
-        <div class="price-container">
-            <p class="price">$10</p>
-            <button class="add-button">+</button>
-        </div>
+    <% var body = `
+    <div class="highlighted-heading-container">
+        <h1 style="font-size: 3rem; margin: 0;">Welcome to Sushi Delivery!</h1>
     </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
+    <div class="sushi-container">
+        <div class="sushi-item" data-item-id="1" data-details="Ingredients: Rice, Fish, Seaweed">
+            <img src="/images/sushi1.png" alt="Sushi Roll">
+            <h2>Sushi Roll</h2>
+            <div class="price-container">
+                <p class="price">$10</p>
+                <button class="add-button" data-item-id="1" data-item-name="Sushi Roll" data-item-price="10">+</button>
+            </div>
         </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
+        <div class="sushi-item" data-item-id="2" data-details="Ingredients: Shrimp, Vegetables, Batter">
+            <img src="/images/sushi2.png" alt="Tempura">
+            <h2>Tempura</h2>
+            <div class="price-container">
+                <p class="price">$15</p>
+                <button class="add-button" data-item-id="2" data-item-name="Tempura" data-item-price="15">+</button>
+            </div>
         </div>
+        <!-- Добавьте больше суши здесь с уникальными data-item-id и правильными значениями -->
     </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <div class="sushi-item">
-        <img src="/images/sushi1.png" alt="Tempura">
-        <h2>Tempura</h2>
-        <div class="price-container">
-            <p class="price">$15</p>
-            <button class="add-button">+</button>
-        </div>
-    </div>
-    <!-- Добавьте больше суши здесь -->
-</div>
 
-`; %>
-<%- include('layout', { title: 'Home', body: body }) %>
+
+    <div class="modal1" id="sushiModal" tabindex="-1" aria-labelledby="sushiModalLabel" aria-hidden="true">
+        <div class="modal1-content">
+            <img src="" alt="Sushi" class="modal-image">
+            <div class="text-content">
+                <h2 class="modal1-title"></h2>
+                <p class="modal1-price"></p>
+                <p class="modal1-details"></p>
+            </div>
+            <span class="close">&times;</span>
+        </div>
+    </div>
+
+
+    `; %>
+    <%- include('layout', { title: 'Home', body: body }) %>
