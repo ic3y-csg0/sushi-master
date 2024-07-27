@@ -1,0 +1,27 @@
+<% var body = `
+<div class="highlighted-heading-container">
+    <h1 style="font-size: 3rem; margin: 0;">Welcome to Sushi Delivery!</h1>
+    
+</div>
+<div class="sushi-container">
+    <div class="sushi-item">
+        <img src="/images/sushi1.png" alt="Sushi Roll">
+        <h2>Sushi Roll</h2>
+        <div class="price-container">
+            <p class="price">$10</p>
+            <button class="add-button">+</button>
+        </div>
+    </div>
+    <div class="sushi-item">
+        <img src="/images/sushi2.jpg" alt="Tempura">
+        <h2>Tempura</h2>
+        <div class="price-container">
+            <p class="price">$15</p>
+            <button class="add-button">+</button>
+        </div>
+    </div>
+    <!-- Добавьте больше суши здесь -->
+</div>
+
+`; %>
+<%- include('layout', { title: 'Home', body: body }) %>
