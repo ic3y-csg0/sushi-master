@@ -10,5 +10,7 @@ router.get('/', (req, res) => {
 router.get('/menu', (req, res) => {
     res.render('menu');
 });
-
+router.get('/checkout', (req, res) => {
+    res.render('checkout', { title: 'Checkout' });
+});
 module.exports = router;
