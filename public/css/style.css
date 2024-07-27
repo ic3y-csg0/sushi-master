@@ -24,11 +24,21 @@
     background-image: url('/images/background.jpg');
     background-size: cover;
     background-position: center;
+    background-color: rgba(0, 0, 0, 0.5);
     background-repeat: no-repeat;
     filter: blur(2px);
     z-index: -1;
 }
-
+.background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный слой */
+    z-index: -1;
+}
 /* Оставляем ваши стили для других элементов */
 body {
     font-family: Arial, sans-serif;
@@ -125,7 +135,7 @@ footer a:hover {
 
 .sushi-item {
     position: relative;
-    background-color: rgba(13, 13, 13, 0.5);
+    background-color: rgba(219, 219, 219, 0.7);
     border-radius: 8px; /* Радиус границы */
     box-shadow: 
         0 3px 6px rgba(0, 0, 0, 0.2),
@@ -137,9 +147,21 @@ footer a:hover {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    
     width: calc(25% - 20px); /* Ширина элемента для 4 колонок с учётом увеличенного отступа */
 }
-
+.sushi-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit; /* Использует тот же фон, что и основной элемент */
+    filter: blur(10px); /* Значение размытия можно настроить */
+    z-index: -1; /* Размещает псевдоэлемент позади содержимого */
+    margin: -8px; /* Если нужно учесть паддинг основного элемента */
+}
 
 .sushi-item img {
     width: 100%;
@@ -256,7 +278,7 @@ footer a:hover {
 .modal1-content .text-content {
     width: 60%; /* 60% ширины для текста */
     padding-left: 20px; /* Отступ слева от изображения */
-    color: black; /* Или #000000 или rgb(0, 0, 0) */
+    color: white; /* Или #000000 или rgb(0, 0, 0) */
 }
 
 /* Стили для заголовка в модальном окне */
@@ -298,6 +320,19 @@ footer a:hover {
         padding-left: 0; /* Убираем отступ слева */
         text-align: center; /* Центрирование текста по горизонтали */
     }
+}
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.delete-button:hover {
+    background-color: #ff0000;
 }
 
 /* Медиа-запросы для мобильных устройств */
@@ -358,4 +393,108 @@ footer a:hover {
 .modal-footer {
     display: flex;
     justify-content: flex-end;
+}
+
+/* Общие стили для контейнера */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    border-radius: 12px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для выделения */
+    overflow: hidden; /* Чтобы скругление применялось к содержимому */
+    animation: fadeIn 1s ease-in-out;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+/* Анимация фона */
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Стили для секции корзины и оформления заказа */
+.cart-summary, .checkout-form {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для выделения */
+    padding: 20px;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Стили для заголовков */
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Стили для форм */
+form label {
+    display: block;
+    margin-top: 10px;
+    color: #555;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+form button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для списка товаров в корзине */
+#cartItems {
+    list-style-type: none;
+    padding: 0;
+}
+
+#cartItems li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-in-out;
 }
