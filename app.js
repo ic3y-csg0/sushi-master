@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const fetch = require('node-fetch'); // Используем fetch для запросов к Telegram API
 const axios = require('axios'); // Добавляем axios для запросов к Google Maps API
