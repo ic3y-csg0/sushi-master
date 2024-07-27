@@ -1,6 +1,4 @@
-    // public/checkout.js
-
-    document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', () => {
         // Функция для получения данных корзины из localStorage
         function getCart() {
             return JSON.parse(localStorage.getItem('cart')) || {};
