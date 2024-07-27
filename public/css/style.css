@@ -1,3 +1,35 @@
+/* Основной фон модального окна */
+.modal-backdrop {
+    display: none !important; /* Скрыть затемнение */
+}
+
+/* Переопределяем z-index модального окна */
+.modal-dialog {
+    z-index: 555; /* Модальное окно должно быть выше, чем фон */
+}
+
+/* Убедитесь, что модальное окно всегда выше фона */
+.modal-content {
+    position: relative;
+    z-index: 1060; /* Высший z-index для модального окна */
+}
+
+/* Основной фон страницы */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px);
+    z-index: -1;
+}
+
+/* Оставляем ваши стили для других элементов */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,7 +37,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
     position: relative;
-  
 }
 
 header, footer {
@@ -33,20 +64,6 @@ main {
     box-sizing: border-box;
     position: relative;
     z-index: 1;
-}
-
-.background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 101%;
-    height: 101%;
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: blur(2px);
-    z-index: -1;
 }
 
 .content {
@@ -95,17 +112,17 @@ footer a:hover {
     z-index: -1;
 }
 
-/* Стили для контейнера с суши */
+
 .sushi-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px; /* Отступ между элементами */
-    padding: 0 10px; /* Горизонтальный padding */
+    gap: 20px; /* Увеличенный отступ между элементами */
+    padding: 0 20px; /* Увеличенный горизонтальный padding */
     box-sizing: border-box;
 }
 
-/* Стили для каждого элемента суши */
+
 .sushi-item {
     position: relative;
     background-color: rgba(13, 13, 13, 0.5);
@@ -120,10 +137,10 @@ footer a:hover {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    width: calc(25% - 10px); /* Ширина элемента для 4 колонок */
+    width: calc(25% - 20px); /* Ширина элемента для 4 колонок с учётом увеличенного отступа */
 }
 
-/* Стили для изображения суши */
+
 .sushi-item img {
     width: 100%;
     height: auto;
@@ -132,7 +149,6 @@ footer a:hover {
     transition: transform 0.3s ease;
 }
 
-/* Стили для контейнера с ценой */
 .price-container {
     display: flex;
     align-items: center;
@@ -143,7 +159,6 @@ footer a:hover {
     transition: transform 0.3s ease;
 }
 
-/* Кнопка добавления товара */
 .add-button {
     background-color: #007bff;
     border: none;
@@ -159,7 +174,6 @@ footer a:hover {
     bottom: 8px; /* Уменьшенный отступ снизу */
 }
 
-/* Эффекты при наведении */
 .sushi-item:hover {
     transform: scale(1.03); /* Увеличение при наведении */
     box-shadow: 
@@ -179,20 +193,125 @@ footer a:hover {
     opacity: 1;
     transform: translateX(0);
 }
+/* Активация карточки суши */
+.sushi-item.active {
+    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+}
 
+/* Основные стили для модального окна */
+.modal1 {
+    position: fixed; /* Закреплено на экране */
+    top: 0;
+    left: 0;
+    width: 100%; /* Полная ширина экрана */
+    height: 100%; /* Полная высота экрана */
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    z-index: 1050; /* Выше других элементов */
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    opacity: 0; /* Начальное состояние для плавного появления */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Плавный переход для opacity и visibility */
+    visibility: hidden; /* Скрыто по умолчанию */
+    display: flex; /* Используем flex для центрирования */
+}
+
+/* Отображение модального окна */
+.modal1.show {
+    opacity: 1; /* Полная видимость */
+    visibility: visible; /* Видимость включена */
+}
+
+/* Стили для содержимого модального окна */
+.modal1-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 80%; /* Максимальная ширина для горизонтального окна */
+    width: 90%;
+    height: auto; /* Высота автоматически подстраивается под содержимое */
+    position: relative;
+    z-index: 1060; /* Выше фона модального окна */
+    display: flex; /* Используем flexbox для горизонтального и вертикального выравнивания */
+    flex-direction: row; /* Горизонтальное размещение по умолчанию */
+    transition: transform 0.3s ease; /* Плавный переход для масштабирования */
+    transform: scale(0.9); /* Начальное состояние для масштабирования */
+}
+
+/* Отображение содержимого модального окна */
+.modal1.show .modal1-content {
+    transform: scale(1); /* Полное масштабирование при показе */
+}
+
+/* Стили для изображения внутри модального окна */
+.modal1-content img {
+    width: 40%; /* 40% ширины для изображения */
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover; /* Обеспечивает сохранение пропорций изображения */
+}
+
+/* Стили для текста внутри модального окна */
+.modal1-content .text-content {
+    width: 60%; /* 60% ширины для текста */
+    padding-left: 20px; /* Отступ слева от изображения */
+    color: black; /* Или #000000 или rgb(0, 0, 0) */
+}
+
+/* Стили для заголовка в модальном окне */
+.modal1-content h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+/* Стили для параграфов в модальном окне */
+.modal1-content p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* Стили для кнопки закрытия */
+.close {
+    position: absolute; /* Исправлено на absolute */
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+
+/* Медиазапрос для мобильных устройств */
+@media (max-width: 768px) {
+    .modal1-content {
+        flex-direction: column; /* Вертикальное размещение на маленьких экранах */
+    }
+
+    .modal1-content img {
+        width: 100%; /* Ширина изображения на всю ширину экрана */
+        height: auto;
+    }
+
+    .modal1-content .text-content {
+        width: 100%; /* Ширина текста на всю ширину экрана */
+        padding-left: 0; /* Убираем отступ слева */
+        text-align: center; /* Центрирование текста по горизонтали */
+    }
+}
+
+/* Медиа-запросы для мобильных устройств */
 @media (max-width: 768px) {
     .sushi-item {
-        width: calc(50% - 10px); /* 2 колонки на планшетах */
+        width: calc(50% - 20px); /* 2 колонки на мобильных устройствах с учётом увеличенного отступа */
     }
 }
 
-/* Для телефонов с экраном меньше 480px */
 @media (max-width: 480px) {
     .sushi-item {
-        width: calc(100% - 10px); /* 1 колонка на телефонах */
+        width: calc(100% - 20px); /* 1 колонка на очень маленьких экранах с учётом увеличенного отступа */
     }
 }
-
 
 .cart-button-fixed {
     position: fixed;
@@ -211,7 +330,7 @@ footer a:hover {
     align-items: center; /* Вертикальное выравнивание иконки */
     justify-content: center; /* Горизонтальное выравнивание иконки */
     font-size: 2.5rem; /* Размер шрифта для иконки */
-    -webkit-backface-visibility: hidden;
+    
     transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы для фона и тени */
 }
 
@@ -220,17 +339,11 @@ footer a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличение тени при наведении */
 }
 
-
-
 /* Стили для иконки внутри кнопки */
 .cart-button-fixed i {
     font-size: 2.5rem; /* Размер шрифта для иконки */
     color: #fff;
 }
-
-
-
-
 
 /* Стили для модального окна, если нужны какие-то изменения */
 .modal-content {
