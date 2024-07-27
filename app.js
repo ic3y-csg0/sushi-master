@@ -9,6 +9,7 @@ const CHAT_IDS = ['-1002207814534', '600274145'];
 // Настройка EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use('/', indexRouter)
 app.use(bodyParser.json());
 // Настройка статических файлов
 app.use(express.static(path.join(__dirname, 'public')));
@@ -78,6 +79,6 @@ Email: ${orderData.email}
     }
 });
 // Подключение маршрутизатора
-app.use('/', indexRouter);
+;
 
 module.exports = app;
