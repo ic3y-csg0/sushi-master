@@ -11,6 +11,6 @@ router.get('/menu', (req, res) => {
     res.render('menu');
 });
 router.get('/checkout', (req, res) => {
-    res.render('checkout', { title: 'Checkout' });
+    res.render('checkout');
 });
 module.exports = router;
