@@ -14,6 +14,108 @@ app.use('/', indexRouter)
 app.use(bodyParser.json());
 // Настройка статических файлов
 app.use(express.static(path.join(__dirname, 'public')));
+//admin stuff
+app.post('/update-sushi', (req, res) => {
+    const newItem = req.body;
+
+    fs.readFile(sushiFilePath, 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).send('Error reading sushi data');
+            return;
+        }
+
+        let sushiData;
+        try {
+            sushiData = JSON.parse(data);
+        } catch (parseError) {
+            console.error('Error parsing sushi data:', parseError);
+            res.status(500).send('Error parsing sushi data');
+            return;
+        }
+
+        // Найти и обновить элемент суши
+        let itemFound = false;
+        for (const category of sushiData.categories) {
+            const index = category.items.findIndex(item => item.id === newItem.id);
+            if (index !== -1) {
+                category.items[index] = newItem;
+                itemFound = true;
+                break;
+            }
+        }
+
+        if (!itemFound) {
+            // Если элемент не найден, добавить новый элемент в первую категорию
+            if (sushiData.categories.length > 0) {
+                sushiData.categories[0].items.push(newItem);
+            } else {
+                // Если нет категорий, создать новую категорию и добавить элемент
+                sushiData.categories.push({
+                    name: 'New Category',
+                    items: [newItem]
+                });
+            }
+        }
+
+        fs.writeFile(sushiFilePath, JSON.stringify(sushiData, null, 2), 'utf8', (err) => {
+            if (err) {
+                res.status(500).send('Error saving sushi data');
+                return;
+            }
+            res.json({ message: 'Sushi updated successfully' });
+        });
+    });
+});
+
+
+app.delete('/delete-sushi/:id', (req, res) => {
+    const id = req.params.id;
+
+    fs.readFile(sushiFilePath, 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).send('Error reading sushi data');
+            return;
+        }
+
+        let sushiData;
+        try {
+            sushiData = JSON.parse(data);
+        } catch (parseError) {
+            console.error('Error parsing sushi data:', parseError);
+            res.status(500).send('Error parsing sushi data');
+            return;
+        }
+
+        let itemDeleted = false;
+
+        // Проходим по всем категориям, чтобы найти и удалить суши
+        for (const category of sushiData.categories) {
+            const initialLength = category.items.length;
+            category.items = category.items.filter(item => item.id !== id);
+
+            if (category.items.length < initialLength) {
+                itemDeleted = true;
+                break;
+            }
+        }
+
+        if (!itemDeleted) {
+            res.status(404).send('Sushi item not found');
+            return;
+        }
+
+        // Записываем обновленные данные обратно в файл
+        fs.writeFile(sushiFilePath, JSON.stringify(sushiData, null, 2), 'utf8', (err) => {
+            if (err) {
+                res.status(500).send('Error saving sushi data');
+                return;
+            }
+            res.json({ message: 'Sushi deleted successfully' });
+        });
+    });
+});
+
+
 // Функция для получения адресов из Google Maps
 async function getAddresses() {
     try {
