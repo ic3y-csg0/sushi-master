@@ -1,17 +1,150 @@
-/* Основной фон модального окна */
-.modal-backdrop {
-    display: none !important; /* Скрыть затемнение */
+/* Общие стили для заголовка */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: all 0.5s ease; /* Плавный переход для всех свойств */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+/* Стили для секций категорий */
+.category-section {
+    margin-top: 50px;
+}
+.category-header {
+    font-size: 1.5em;
+    font-weight: bold;
+   position: relative;
+ 
+    margin: 0%;
 }
 
-/* Переопределяем z-index модального окна */
-.modal-dialog {
-    z-index: 555; /* Модальное окно должно быть выше, чем фон */
+.category-container {
+    margin-bottom: 40px; /* Отступ между категориями */
+    width: -webkit-fill-available;
 }
 
-/* Убедитесь, что модальное окно всегда выше фона */
-.modal-content {
+.small-header .categories {
+    display: flex;
+}
+
+
+
+.category-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff4500; /* Линия под заголовком категории */
+    padding-bottom: 10px;
+}
+
+/* Стили для категорий в заголовке */
+.categories {
+    display: none; /* Скрыть по умолчанию */
+  
+    margin-left: 20px;
+}
+
+.category {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #000;
     position: relative;
-    z-index: 1060; /* Высший z-index для модального окна */
+    padding-bottom: 5px;
+}
+
+.category.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff4500;
+}
+/* Большой заголовок */
+header.large-header {
+    margin-top: 50px;
+    background-color: #ffffff;
+    color: #FFFFFF;
+    border-radius: 12px;
+    left: 50%;
+    width: 70%;
+    transform: translateX(-50%); /* Центрирование заголовка */
+    z-index: 1000;
+    justify-content: center;
+}
+
+/* Маленький заголовок */
+header.small-header {
+    background-color: #ffffff;
+    color: #ffffff;
+    font-size: 1rem;
+    left: 0;
+    width: 100%;
+    transform: translateX(0); /* Смещение заголовка влево */
+    z-index: 1000;
+    justify-content: flex-start; /* Выравнивание по левому краю */
+}
+
+/* Общие стили для содержимого навбара */
+header .navbar-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transition: transform 0.5s ease; /* Плавный переход для содержимого */
+}
+
+/* Содержимое большого заголовка */
+header.large-header .navbar-content {
+    justify-content: center; /* Центрирование содержимого */
+}
+
+/* Содержимое маленького заголовка */
+header.small-header .navbar-content {
+    justify-content: flex-start; /* Выравнивание по левому краю */
+}
+
+/* Стили для изображений внутри навбара */
+header .navbar-content img {
+    flex: 0 1 auto;
+    width: auto;
+    height: 100%;
+    transition: max-height 0.5s ease; /* Плавный переход для высоты изображения */
+    object-fit: contain;
+    margin: 0 10px; /* Промежуток между изображениями */
+}
+
+/* Ограничение высоты изображений для большого заголовка */
+header.large-header .navbar-content img {
+    max-height: 200px;
+}
+
+/* Ограничение высоты изображений для маленького заголовка */
+header.small-header .navbar-content img {
+    max-height: 100px;
+}
+
+.navbar-buttons {
+    transition: margin-left 0.5s ease;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+header.large-header .navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+header.small-header .navbar .btn {
+    margin-left: auto;
+}
+
+.content {
+    padding: 20px;
+    margin-top: 50px;
 }
 
 /* Основной фон страницы */
@@ -24,7 +157,7 @@
     background-image: url('/images/background.jpg');
     background-size: cover;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     background-repeat: no-repeat;
     filter: blur(2px);
     z-index: -1;
@@ -36,7 +169,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный слой */
+    background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный черный слой */
     z-index: -1;
 }
 /* Оставляем ваши стили для других элементов */
@@ -50,17 +183,20 @@ body {
 }
 
 header, footer {
-    background: rgba(255, 255, 255, 0.2);
+  
     z-index: 1;
 }
 
 header {
+    background-color: #00000093;
     margin-bottom: 20px;
+    color: #FFFFFF; /* Цвет текста */
 }
 
 footer {
-    background-color: #f8f9fa;
-    border-top: 1px solid #e9ecef;
+    background-color: #ffffff93;
+    color: #000000; /* Цвет текста */
+    border-top: 1px solid #ffffff;
     padding: 20px;
     text-align: center;
     width: 100%;
@@ -77,9 +213,10 @@ main {
 }
 
 .content {
-    z-index: 1;
-    color: #fff;
+
+    transition: margin-top 0.3s ease;
 }
+
 
 footer p {
     margin: 0;
@@ -94,107 +231,108 @@ footer a:hover {
     text-decoration: underline;
 }
 
-.highlighted-heading-container {
-    position: relative;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 
-        0 0 20px rgba(0, 0, 0, 0.7),
-        0 0 30px rgba(0, 0, 0, 0.5),
-        0 0 40px rgba(0, 0, 0, 0.3);
-}
 
-.highlighted-heading-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    filter: blur(3px);
-    z-index: -1;
-}
+
 
 
 .sushi-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px; /* Увеличенный отступ между элементами */
-    padding: 0 20px; /* Увеличенный горизонтальный padding */
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    justify-content: center; /* Центрирование карточек */
+    gap: 20px; /* Промежуток между карточками */
+    padding: 30px; /* Отступы вокруг контейнера */
     box-sizing: border-box;
 }
-
 
 .sushi-item {
     position: relative;
     background-color: rgba(219, 219, 219, 0.7);
-    border-radius: 8px; /* Радиус границы */
+    border-radius: 8px; 
     box-shadow: 
         0 3px 6px rgba(0, 0, 0, 0.2),
-        0 4px 8px rgba(0, 0, 0, 0.15); /* Тени */
-    padding: 8px; /* Увеличенный padding */
-    text-align: center;
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 20px; 
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
-    display: flex;
+    display: inline-block;
+    margin: 10px;
+    vertical-align: top;
     flex-direction: column;
-    
-    width: calc(25% - 20px); /* Ширина элемента для 4 колонок с учётом увеличенного отступа */
+    width: 410px; 
+    height: 400px;
 }
-.sushi-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit; /* Использует тот же фон, что и основной элемент */
-    filter: blur(10px); /* Значение размытия можно настроить */
-    z-index: -1; /* Размещает псевдоэлемент позади содержимого */
-    margin: -8px; /* Если нужно учесть паддинг основного элемента */
+
+@media (max-width: 992px) {
+    .sushi-item {
+        width: calc(50% - 20px); 
+    }
+}
+
+@media (max-width: 576px) {
+    .sushi-item {
+        width: calc(100% - 20px); 
+    }
 }
 
 .sushi-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px; /* Радиус границы */
-    object-fit: cover;
+    width: 100%; 
+    height: 50%;
+    object-fit: cover; 
+    border-radius: 8px; 
+    margin-bottom: 10px; 
     transition: transform 0.3s ease;
 }
 
-.price-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: auto;
-    position: relative;
-    font-size: 1.1rem; /* Увеличенный размер шрифта для текста */
-    transition: transform 0.3s ease;
-}
-
-.add-button {
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    padding: 6px 12px; /* Увеличенный padding */
-    font-size: 1.1rem; /* Увеличенный размер шрифта */
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+.weight-container {
     position: absolute;
-    right: 8px; /* Уменьшенный отступ справа */
-    bottom: 8px; /* Уменьшенный отступ снизу */
+    top: 15px;
+    right: 15px;
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 20px;
+    padding: 1px 20px;
+    font-size: 1.3rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    line-height: 30px;
+    height: 35px;
 }
+
+
+.sushi-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    height: 100%; 
+    padding: 0 10px; 
+}
+
+.sushi-content h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center; 
+}
+
+.sushi-content p {
+    position: absolute;
+   margin-top: 30px;
+    text-align: left;
+    font-size: 1.4rem;
+}
+
+.sushi-content .price {
+    font-weight: bold !important;
+    font-size: 2rem !important;
+   position: absolute;
+    text-align: left !important;
+   
+    bottom: 10px !important;
+    left: 10px !important;
+}
+
+
+
 
 .sushi-item:hover {
     transform: scale(1.03); /* Увеличение при наведении */
@@ -214,12 +352,37 @@ footer a:hover {
 .sushi-item:hover .add-button {
     opacity: 1;
     transform: translateX(0);
+
 }
-/* Активация карточки суши */
-.sushi-item.active {
-    transform: scale(1.05);
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 10;
+
+
+
+.add-button {
+    display: block; /* Делает кнопку видимой */
+    position: absolute; /* Абсолютное позиционирование для размещения справа */
+    bottom: 10px;
+    margin-bottom: 10px;
+    right: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 8px 12px; /* Размер кнопки */
+    font-size: 1rem; /* Размер шрифта кнопки */
+    cursor: pointer;
+}
+
+
+
+/* Стили для модального окна */
+.modal-dialog {
+    transition: transform 0.3s ease-out;
+}
+.modal.fade .modal-dialog {
+    transform: translateY(-50px);
+}
+.modal.show .modal-dialog {
+    transform: translateY(0);
 }
 
 /* Основные стили для модального окна */
@@ -278,7 +441,7 @@ footer a:hover {
 .modal1-content .text-content {
     width: 60%; /* 60% ширины для текста */
     padding-left: 20px; /* Отступ слева от изображения */
-    color: white; /* Или #000000 или rgb(0, 0, 0) */
+    color: black; /* Цвет текста */
 }
 
 /* Стили для заголовка в модальном окне */
@@ -302,6 +465,7 @@ footer a:hover {
     cursor: pointer;
     color: #333;
 }
+
 
 
 /* Медиазапрос для мобильных устройств */
@@ -335,18 +499,7 @@ footer a:hover {
     background-color: #ff0000;
 }
 
-/* Медиа-запросы для мобильных устройств */
-@media (max-width: 768px) {
-    .sushi-item {
-        width: calc(50% - 20px); /* 2 колонки на мобильных устройствах с учётом увеличенного отступа */
-    }
-}
 
-@media (max-width: 480px) {
-    .sushi-item {
-        width: calc(100% - 20px); /* 1 колонка на очень маленьких экранах с учётом увеличенного отступа */
-    }
-}
 
 .cart-button-fixed {
     position: fixed;
@@ -497,4 +650,43 @@ form button:hover {
 
 .animate-fade-in {
     animation: fadeIn 1s ease-in-out;
+}
+
+
+.admin-panel {
+    margin: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.admin-panel form {
+    display: flex;
+    flex-direction: column;
+}
+.admin-panel input,
+.admin-panel textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.admin-panel button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.admin-panel button:hover {
+    background-color: #0056b3;
+}
+
+.sushi-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center; /* Выравнивание по центру */
 }
