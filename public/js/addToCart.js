@@ -1,74 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('sushiModal');
-    const closeModal = modal.querySelector('.close');
-    const modalImage = modal.querySelector('.modal-image');
-    const modalTitle = modal.querySelector('.modal1-title');
-    const modalPrice = modal.querySelector('.modal1-price');
-    const modalDetails = modal.querySelector('.modal1-details');
-
-    // Переменная для хранения ID текущего элемента
-    let currentItemId; 
-
-    // Функция для открытия модального окна
-    function openModal(event) {
-        if (event.target.classList.contains('add-button')) return;
-
-        const sushiItem = event.currentTarget;
-        const imgSrc = sushiItem.querySelector('img').src;
-        const title = sushiItem.querySelector('h2').textContent;
-        const price = sushiItem.querySelector('.price').textContent;
-        const details = sushiItem.getAttribute('data-details');
-        currentItemId = sushiItem.getAttribute('data-item-id'); // Извлечение ID элемента
-
-        modalImage.src = imgSrc;
-        modalTitle.textContent = title;
-        modalPrice.textContent = price;
-        modalDetails.textContent = details;
-
-        modal.classList.add('show');
-    }
-
-    // Функция для закрытия модального окна
-    function closeModalHandler() {
-        modal.classList.remove('show');
-    }
-
-    // Функция для удаления элемента из корзины
-    function deleteItemHandler(itemId) {
-        if (itemId && cart[itemId]) {
-            delete cart[itemId];
-            updateCart();
-            closeModalHandler();
-        }
-    }
-
-    // Обработчик кликов по карточкам суши для открытия модального окна
-    document.querySelectorAll('.sushi-item').forEach(item => {
-        item.addEventListener('click', openModal);
-    });
-
-    closeModal.addEventListener('click', closeModalHandler);
-
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            closeModalHandler();
-        }
-    });
-
-    // Устанавливаем обработчик клика для всех кнопок удаления в корзине
-    function setupDeleteButtons() {
-        document.querySelectorAll('.delete-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const itemId = this.getAttribute('data-item-id');
-                deleteItemHandler(itemId);
-            });
-        });
-    }
-
-    // Инициализация корзины
+document.addEventListener("DOMContentLoaded", function() {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
 
-    // Функция для обновления содержимого корзины
     function updateCart() {
         const cartModalBody = document.querySelector('#cartModal .modal-body');
         cartModalBody.innerHTML = '';
@@ -95,28 +27,134 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
-
-        // Устанавливаем обработчики для кнопок удаления
         setupDeleteButtons();
     }
 
-    // Обработчик кликов по кнопкам "плюс" для добавления товаров в корзину
-    document.querySelectorAll('.add-button').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.stopPropagation();
-
-            const itemId = this.getAttribute('data-item-id');
-            const itemName = this.getAttribute('data-item-name');
-            const itemPrice = parseFloat(this.getAttribute('data-item-price'));
-
-            if (cart[itemId]) {
-                cart[itemId].quantity += 1;
-            } else {
-                cart[itemId] = { name: itemName, price: itemPrice, quantity: 1 };
-            }
-
-            updateCart();
+    function setupDeleteButtons() {
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const itemId = this.getAttribute('data-item-id');
+                deleteItemHandler(itemId);
+            });
         });
+    }
+
+    function deleteItemHandler(itemId) {
+        if (itemId && cart[itemId]) {
+            delete cart[itemId];
+            updateCart();
+        }
+    }
+
+    function addToCart(itemId, itemName, itemPrice) {
+        if (cart[itemId]) {
+            cart[itemId].quantity += 1;
+        } else {
+            cart[itemId] = { name: itemName, price: itemPrice, quantity: 1 };
+        }
+        updateCart();
+    }
+
+    function setupAddButtons() {
+        document.querySelectorAll('.add-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.stopPropagation();
+                const itemId = this.getAttribute('data-item-id');
+                const itemName = this.getAttribute('data-item-name');
+                const itemPrice = parseFloat(this.getAttribute('data-item-price'));
+                addToCart(itemId, itemName, itemPrice);
+            });
+        });
+    }
+
+    const sushiContainer = document.getElementById('sushiContainer');
+
+    const addSushi = (data) => {
+        sushiContainer.innerHTML = ''; // Очистить контейнер
+
+        data.categories.forEach(category => {
+            const categoryContainer = document.createElement('div');
+            categoryContainer.classList.add('category-container');
+
+            const categoryHeader = document.createElement('h1');
+            categoryHeader.textContent = category.name;
+            categoryHeader.classList.add('category-header');
+            categoryContainer.appendChild(categoryHeader);
+
+            category.items.forEach(item => {
+                const sushiDiv = document.createElement('div');
+                sushiDiv.classList.add('sushi-item');
+                sushiDiv.setAttribute('data-item-id', item.id);
+                sushiDiv.setAttribute('data-item-name', item.name);
+                sushiDiv.setAttribute('data-item-price', item.price);
+                sushiDiv.setAttribute('data-details', item.details);
+                sushiDiv.setAttribute('data-weight', item.weight);
+
+                sushiDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="sushi-image">
+                    <div class="weight-container">
+                        <p class="weight">${item.weight}</p>
+                    </div>
+                    <div class="sushi-content">
+                        <h2>${item.name}</h2>
+                        <p class="details">${item.details}</p>
+                        <p class="price">$${item.price}</p>
+                        <button class="add-button" data-item-id="${item.id}" data-item-name="${item.name}" data-item-price="${item.price}">Add to Cart</button>
+                    </div>
+                `;
+
+                categoryContainer.appendChild(sushiDiv);
+            });
+
+            sushiContainer.appendChild(categoryContainer);
+        });
+
+        setupAddButtons();
+    };
+
+    fetch('/sushi.json')
+        .then(response => response.json())
+        .then(data => {
+            addSushi(data);
+        });
+
+    const modal = document.getElementById('sushiModal');
+    const closeModal = modal.querySelector('.close');
+    const modalImage = modal.querySelector('.modal-image');
+    const modalTitle = modal.querySelector('.modal1-title');
+    const modalPrice = modal.querySelector('.modal1-price');
+    const modalDetails = modal.querySelector('.modal1-details');
+
+    let currentItemId;
+
+    function openModal(event) {
+        if (event.target.classList.contains('add-button')) return;
+
+        const sushiItem = event.currentTarget;
+        const imgSrc = sushiItem.querySelector('img').src;
+        const title = sushiItem.querySelector('h2').textContent;
+        const price = sushiItem.querySelector('.price').textContent;
+        const details = sushiItem.querySelector('[data-details]').textContent;
+        currentItemId = sushiItem.getAttribute('data-item-id');
+
+        modalImage.src = imgSrc;
+        modalTitle.textContent = title;
+        modalPrice.textContent = price;
+        modalDetails.textContent = details;
+
+        modal.classList.add('show');
+    }
+
+    function closeModalHandler() {
+        modal.classList.remove('show');
+    }
+
+    closeModal.addEventListener('click', closeModalHandler);
+
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            closeModalHandler();
+        }
     });
 
     updateCart();
