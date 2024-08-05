@@ -35,13 +35,19 @@ app.post('/place-order', async (req, res) => {
 
     console.log('Received order data:', orderData);
 
+    // Формирование читаемого сообщения для корзины
+    const formattedCartItems = Object.entries(orderData.cart).map(([id, item]) => {
+        return `${item.name} - $${item.price} x ${item.quantity}`;
+    }).join('\n');
+
     // Формирование сообщения для отправки в Telegram
     const message = `
 *Новый заказ:*
 Имя: ${orderData.name}
 Адрес: ${orderData.address}
 Email: ${orderData.email}
-Корзина: ${JSON.stringify(orderData.cart, null, 2)}
+Корзина:
+${formattedCartItems}
 `;
 
     try {
@@ -79,7 +85,5 @@ Email: ${orderData.email}
         res.json({ success: false, message: 'Error placing order.' });
     }
 });
-// Подключение маршрутизатора
-;
 
 module.exports = app;
