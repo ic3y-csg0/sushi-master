@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -12,9 +13,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use('/', indexRouter)
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // Настройка статических файлов
 app.use(express.static(path.join(__dirname, 'public')));
 //admin stuff
+    const sushiFilePath = path.join(__dirname, 'sushi.json');
 app.post('/update-sushi', (req, res) => {
     const newItem = req.body;
 
