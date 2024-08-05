@@ -1,0 +1,63 @@
+{
+  "categories": [
+    {
+      "name": "Sushi",
+      "items": [
+        {
+          "id": "1722281937106",
+          "name": "22",
+          "price": "222",
+          "details": "Tuna",
+          "image": "/images/sushi2.png",
+          "weight": "150g",
+          "category": "Maki"
+        },
+        {
+          "id": "1722281937109",
+          "name": "novaya susha",
+          "price": "222",
+          "details": "Tuna",
+          "image": "/images/sushi2.png",
+          "weight": "150g"
+        },
+        {
+          "id": "1722281937108",
+          "name": "novaya susha",
+          "price": "222",
+          "details": "Tuna",
+          "image": "/images/sushi2.png",
+          "weight": "150g"
+        },
+        {
+          "id": "1722281962080",
+          "name": "eshe odna",
+          "price": "123123",
+          "details": "123123",
+          "image": "/images/sushi1.png",
+          "weight": "250g"
+        }
+      ]
+    },
+    {
+      "name": "Maki",
+      "items": [
+        {
+          "id": "1722281972921",
+          "name": "sadsad",
+          "price": "2",
+          "details": "14",
+          "image": "/images/sushi1.png",
+          "weight": "100g"
+        },
+        {
+          "id": "1722289884999",
+          "name": "1",
+          "price": "1",
+          "details": "1",
+          "image": "/images/sushi1.png",
+          "weight": "200g"
+        }
+      ]
+    }
+  ]
+}
