@@ -1,46 +1,177 @@
-    <% var body = `
-    <div class="categories"></div>
-            <div class="sushi-container" id="sushiContainer">
-                <!-- Суши элементы будут добавлены сюда с помощью JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Sushi Delivery</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+</head>
+<body>
+    <div class="background"></div>
+    <header id="main-header" class="large-header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="navbar-content">
+                <img src="/images/logo1.png", alt="Sushi Delivery" class="header-image">
+                <img src="/images/logo2.png", alt="Sushi Delivery" class="header-image">
+                 <nav class="categories">
             </div>
-        
-        <div class="modal1" id="sushiModal" tabindex="-1" aria-labelledby="sushiModalLabel" aria-hidden="true">
-            <div class="modal1-content">
-                <span class="close">&times;</span>
-                <img src="" alt="Sushi" class="modal-image">
-                <div class="text-content">
-                    <h2 class="modal1-title"></h2>
-                    <p class="modal1-price"></p>
-                    <p class="modal1-details"></p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Cart items will be dynamically inserted here -->
-                        <p>Your cart is empty.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a href="/checkout" class="btn btn-primary">Checkout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+          
+        </nav>
+    </header>
+    
+    
 
+    <!-- Модальное окно для авторизации -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="button" class="btn btn-link" id="registerBtn">Register</button>
+                        </div>
+                    </form>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для корзины -->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Cart items will be dynamically inserted here -->
+                    <p>Your cart is empty.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="/checkout" class="btn btn-primary">Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container-fluid">
+        <div class="content">
+            <%- body %> <!-- Основной контент страницы вставляется сюда -->
+        </div>
         <!-- Кнопка корзины -->
         <button type="button" class="cart-button-fixed" data-toggle="modal" data-target="#cartModal">
             <i class="fas fa-shopping-cart"></i>
         </button>
-    `; %>
+    </main>
 
-            <%- include('layout', { title: 'Home', body: body }) %>
+    <footer>
+        <p>&copy; 2024 Sushi Delivery. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/addToCart.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+    
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+    
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                if (data.success) {
+                    alert(data.message); // Можно заменить на более удобный способ уведомления
+                    window.location.reload(); // Перезагрузите страницу или перенаправьте пользователя
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    
+        document.getElementById('registerBtn').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+    
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                if (data.success) {
+                    alert(data.message);
+                    document.getElementById('loginForm').reset(); // Очистить поля формы после успешной регистрации
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Функция для перенаправления на главную страницу
+            function redirectToHome() {
+                if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+                    window.location.href = '/'; // URL главной страницы
+                }
+            }
+
+            // Получаем все элементы с классом 'header-image'
+            const logos = document.getElementsByClassName('header-image');
+
+            // Преобразуем HTMLCollection в массив для удобства работы
+            Array.from(logos).forEach(logo => {
+                logo.addEventListener('click', redirectToHome);
+            });
+        });
+    </script>
+        
+</body>
+</html>
