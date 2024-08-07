@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Главная страница
 router.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { title: 'Home' });
 });
 
 // Страница меню
